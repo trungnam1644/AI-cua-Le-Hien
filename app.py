@@ -158,11 +158,21 @@ KHI PHÂN TÍCH VẤN ĐỀ:
 
 HÃY BẮT ĐẦU BẰNG LỜI CHÀO ẤM ÁP."""
 
-# Khởi tạo session state để lưu lịch sử chat
+# Khởi tạo session state để lưu lịch sử chat và chế độ
 if "messages" not in st.session_state:
     st.session_state.messages = []
-    # Tin nhắn chào mừng đơn giản
-    welcome_message = """Chào cô! 🌸
+if "current_mode" not in st.session_state:
+    st.session_state.current_mode = "👶 Giáo viên Mầm Non"
+
+# Kiểm tra nếu chế độ thay đổi thì reset chat và gửi tin nhắn chào mới
+if "mode" in locals() and mode != st.session_state.current_mode:
+    st.session_state.messages = []
+    st.session_state.current_mode = mode
+
+# Tin nhắn chào mừng theo chế độ
+if len(st.session_state.messages) == 0:
+    if st.session_state.current_mode == "👶 Giáo viên Mầm Non":
+        welcome_message = """Chào cô! 🌸
 
 Mình là trợ lý dành riêng cho các cô giáo mầm non. Mình sẵn sàng giúp cô giải quyết các vấn đề trong công việc!
 
@@ -180,6 +190,21 @@ Cần ý tưởng trò chơi, bài học mới lạ, phù hợp lứa tuổi
 ---
 
 Cô hãy chọn số 1, 2, 3 hoặc chia sẻ vấn đề khác nhé! Mình sẽ cùng cô tìm giải pháp!"""
+    else:  # Chế độ Ban Giám hiệu
+        welcome_message = """Xin chào Ban Giám hiệu! 🎓
+
+Tôi là trợ lý quản lý giáo dục. Nhà trường đang gặp 3 vấn đề nổi bật gần đây. Bạn muốn phân tích vấn đề nào trước?
+
+**1. Chất lượng giảng dạy của một số tổ chuyên môn giảm sút**
+
+**2. Bất đồng quan điểm giữa các nhóm giáo viên thế hệ khác nhau**
+
+**3. Mức độ tham gia hoạt động chung không đồng đều**
+
+---
+
+Hãy chọn số 1, 2, 3 hoặc mô tả vấn đề khác bạn đang gặp phải."""
+    
     st.session_state.messages.append({"role": "assistant", "content": welcome_message})
 
 # Hiển thị lịch sử chat
@@ -234,51 +259,103 @@ Hãy trả lời theo vai trò trợ lý thân thiện của giáo viên mầm n
 
 # Sidebar với glass effect
 with st.sidebar:
-    st.markdown("### 🎀 Công cụ hỗ trợ nhanh")
-    st.markdown("---")
+    st.markdown("### 🎯 Chế độ làm việc")
     
-    st.markdown("#### 📚 Hoạt động học")
-    
-    if st.button("🎨 Hoạt động học chơi"):
-        prompt = "Gợi ý hoạt động học chơi vui nhộn cho trẻ mầm non"
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        st.rerun()
-    
-    if st.button("🎭 Trò chơi phát triển"):
-        prompt = "Ý tưởng trò chơi phát triển kỹ năng cho trẻ"
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        st.rerun()
-    
-    if st.button("🎵 Bài hát vận động"):
-        prompt = "Bài hát và động tác cho trẻ mầm non"
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        st.rerun()
+    # Thêm radio button để chọn chế độ
+    mode = st.radio(
+        "Chọn vai trò:",
+        ["👶 Giáo viên Mầm Non", "🎓 Ban Giám hiệu"],
+        label_visibility="collapsed"
+    )
     
     st.markdown("---")
-    st.markdown("#### 💬 Phụ huynh")
     
-    if st.button("👨‍👩‍👧 Tin nhắn phụ huynh"):
-        prompt = "Mẫu tin nhắn gửi phụ huynh"
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        st.rerun()
+    if mode == "👶 Giáo viên Mầm Non":
+        st.markdown("### 🎀 Công cụ hỗ trợ nhanh")
+        st.markdown("#### 📚 Hoạt động học")
+        
+        if st.button("🎨 Hoạt động học chơi"):
+            prompt = "Gợi ý hoạt động học chơi vui nhộn cho trẻ mầm non"
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            st.rerun()
+        
+        if st.button("🎭 Trò chơi phát triển"):
+            prompt = "Ý tưởng trò chơi phát triển kỹ năng cho trẻ"
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            st.rerun()
+        
+        if st.button("🎵 Bài hát vận động"):
+            prompt = "Bài hát và động tác cho trẻ mầm non"
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            st.rerun()
+        
+        st.markdown("---")
+        st.markdown("#### 💬 Phụ huynh")
+        
+        if st.button("👨‍👩‍👧 Tin nhắn phụ huynh"):
+            prompt = "Mẫu tin nhắn gửi phụ huynh"
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            st.rerun()
+        
+        if st.button("📋 Báo cáo phát triển"):
+            prompt = "Cách viết báo cáo phát triển của trẻ"
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            st.rerun()
+        
+        st.markdown("---")
+        st.markdown("#### 🎯 Xử lý tình huống")
+        
+        if st.button("😢 Trẻ khóc, quấy"):
+            prompt = "Cách xử lý trẻ khóc và quấy phá"
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            st.rerun()
+        
+        if st.button("🤝 Kỹ năng xã hội"):
+            prompt = "Dạy trẻ kỹ năng xã hội"
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            st.rerun()
     
-    if st.button("📋 Báo cáo phát triển"):
-        prompt = "Cách viết báo cáo phát triển của trẻ"
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        st.rerun()
-    
-    st.markdown("---")
-    st.markdown("#### 🎯 Xử lý tình huống")
-    
-    if st.button("😢 Trẻ khóc, quấy"):
-        prompt = "Cách xử lý trẻ khóc và quấy phá"
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        st.rerun()
-    
-    if st.button("🤝 Kỹ năng xã hội"):
-        prompt = "Dạy trẻ kỹ năng xã hội"
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        st.rerun()
+    else:  # Chế độ Ban Giám hiệu
+        st.markdown("### 📊 Quản lý nhà trường")
+        st.markdown("#### 🎯 Vấn đề phổ biến")
+        
+        if st.button("📉 Chất lượng giảng dạy"):
+            prompt = "Phân tích vấn đề chất lượng giảng dạy của một số tổ chuyên môn giảm sút"
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            st.rerun()
+        
+        if st.button("👥 Bất đồng thế hệ"):
+            prompt = "Phân tích vấn đề bất đồng quan điểm giữa các nhóm giáo viên thế hệ khác nhau"
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            st.rerun()
+        
+        if st.button("📊 Tham gia hoạt động"):
+            prompt = "Phân tích vấn đề mức độ tham gia hoạt động chung không đồng đều"
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            st.rerun()
+        
+        st.markdown("---")
+        st.markdown("#### 📝 Tài liệu hỗ trợ")
+        
+        if st.button("📋 Kế hoạch can thiệp"):
+            prompt = "Viết kế hoạch can thiệp 1 trang cho vấn đề đang thảo luận"
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            st.rerun()
+        
+        if st.button("📊 Báo cáo phân tích"):
+            prompt = "Xây dựng báo cáo phân tích tình huống chi tiết"
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            st.rerun()
+        
+        if st.button("✅ Checklist 30 ngày"):
+            prompt = "Tạo checklist việc cần làm trong 30 ngày"
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            st.rerun()
+        
+        if st.button("📄 Tài liệu báo cáo"):
+            prompt = "Tạo tài liệu để báo cáo cho giáo viên"
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            st.rerun()
     
     st.markdown("---")
     
