@@ -3,7 +3,7 @@ import google.generativeai as genai
 
 st.set_page_config(
     page_title="Trợ lý Quản lý Giáo dục", 
-    page_icon="📄", 
+    page_icon="🎓", 
     layout="wide"
 )
 
@@ -163,10 +163,52 @@ Hãy chọn số **1, 2, 3** hoặc mô tả vấn đề khác bạn đang gặp
     
     st.session_state.messages.append({"role": "assistant", "content": welcome_message})
 
+# Kiểm tra xem có message mới từ button sidebar không
+if "pending_response" not in st.session_state:
+    st.session_state.pending_response = False
+
+# Hiển thị tất cả messages
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
+# Xử lý AI response nếu có message mới từ button
+if st.session_state.pending_response and len(st.session_state.messages) > 0:
+    last_message = st.session_state.messages[-1]
+    if last_message["role"] == "user":
+        with st.chat_message("assistant"):
+            message_placeholder = st.empty()
+            
+            try:
+                conversation_history = ""
+                for msg in st.session_state.messages:
+                    role = "Người dùng" if msg["role"] == "user" else "Trợ lý"
+                    conversation_history += f"{role}: {msg['content']}\n\n"
+                
+                full_prompt = f"""{SYSTEM_PROMPT}
+
+LỊCH SỬ HỘI THOẠI:
+{conversation_history}
+
+Ban Giám hiệu vừa hỏi: {last_message['content']}
+
+Hãy trả lời theo vai trò trợ lý quản lý giáo dục chuyên nghiệp. Phân tích vấn đề và đưa ra các lựa chọn hỗ trợ cụ thể."""
+                
+                response = model.generate_content(full_prompt)
+                full_response = response.text
+                
+                message_placeholder.markdown(full_response)
+                st.session_state.messages.append({"role": "assistant", "content": full_response})
+                
+            except Exception as e:
+                error_message = f"Có lỗi xảy ra: {str(e)}"
+                message_placeholder.markdown(error_message)
+                st.session_state.messages.append({"role": "assistant", "content": error_message})
+        
+        st.session_state.pending_response = False
+        st.rerun()
+
+# Xử lý input từ chat
 if prompt := st.chat_input("Nhập tin nhắn của bạn..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     
@@ -211,16 +253,19 @@ with st.sidebar:
     if st.button("📊 Chất lượng giảng dạy"):
         prompt = "Phân tích vấn đề: Chất lượng giảng dạy của một số tổ chuyên môn giảm sút"
         st.session_state.messages.append({"role": "user", "content": prompt})
+        st.session_state.pending_response = True
         st.rerun()
     
     if st.button("👥 Bất đồng thế hệ"):
         prompt = "Phân tích vấn đề: Bất đồng quan điểm giữa các nhóm giáo viên thế hệ khác nhau"
         st.session_state.messages.append({"role": "user", "content": prompt})
+        st.session_state.pending_response = True
         st.rerun()
     
     if st.button("🎯 Tham gia hoạt động"):
         prompt = "Phân tích vấn đề: Mức độ tham gia hoạt động chung không đồng đều"
         st.session_state.messages.append({"role": "user", "content": prompt})
+        st.session_state.pending_response = True
         st.rerun()
     
     st.markdown("---")
@@ -229,21 +274,25 @@ with st.sidebar:
     if st.button("📋 Kế hoạch can thiệp"):
         prompt = "Viết kế hoạch can thiệp 1 trang cho vấn đề đang thảo luận"
         st.session_state.messages.append({"role": "user", "content": prompt})
+        st.session_state.pending_response = True
         st.rerun()
     
     if st.button("📈 Báo cáo phân tích"):
         prompt = "Xây dựng báo cáo phân tích tình huống chi tiết"
         st.session_state.messages.append({"role": "user", "content": prompt})
+        st.session_state.pending_response = True
         st.rerun()
     
     if st.button("✅ Checklist 30 ngày"):
         prompt = "Tạo checklist việc cần làm trong 30 ngày"
         st.session_state.messages.append({"role": "user", "content": prompt})
+        st.session_state.pending_response = True
         st.rerun()
     
     if st.button("📄 Tài liệu báo cáo GV"):
         prompt = "Tạo tài liệu để báo cáo cho giáo viên"
         st.session_state.messages.append({"role": "user", "content": prompt})
+        st.session_state.pending_response = True
         st.rerun()
     
     st.markdown("---")
