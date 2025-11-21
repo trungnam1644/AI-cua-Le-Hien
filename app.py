@@ -178,6 +178,7 @@ if st.session_state.pending_response and len(st.session_state.messages) > 0:
     if last_message["role"] == "user":
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
+            full_response = ""
             
             try:
                 conversation_history = ""
@@ -194,8 +195,12 @@ Ban Giám hiệu vừa hỏi: {last_message['content']}
 
 Hãy trả lời theo vai trò trợ lý quản lý giáo dục chuyên nghiệp. Phân tích vấn đề và đưa ra các lựa chọn hỗ trợ cụ thể."""
                 
-                response = model.generate_content(full_prompt)
-                full_response = response.text
+                # Streaming response
+                response = model.generate_content(full_prompt, stream=True)
+                for chunk in response:
+                    if chunk.text:
+                        full_response += chunk.text
+                        message_placeholder.markdown(full_response + "▌")
                 
                 message_placeholder.markdown(full_response)
                 st.session_state.messages.append({"role": "assistant", "content": full_response})
@@ -217,6 +222,7 @@ if prompt := st.chat_input("Nhập tin nhắn của bạn..."):
     
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
+        full_response = ""
         
         try:
             conversation_history = ""
@@ -233,8 +239,12 @@ Ban Giám hiệu vừa hỏi: {prompt}
 
 Hãy trả lời theo vai trò trợ lý quản lý giáo dục chuyên nghiệp. Phân tích vấn đề và đưa ra các lựa chọn hỗ trợ cụ thể."""
             
-            response = model.generate_content(full_prompt)
-            full_response = response.text
+            # Streaming response
+            response = model.generate_content(full_prompt, stream=True)
+            for chunk in response:
+                if chunk.text:
+                    full_response += chunk.text
+                    message_placeholder.markdown(full_response + "▌")
             
             message_placeholder.markdown(full_response)
             st.session_state.messages.append({"role": "assistant", "content": full_response})
@@ -303,4 +313,4 @@ with st.sidebar:
     
     st.markdown("---")
     st.markdown("**💝 Tạo bởi LeHien**")
-    st.markdown("**🌸 Dành tặng cô giáo mầm non**")
+    st.markdown("**🌸TN Dành tặng cô giáo mầm non**")
