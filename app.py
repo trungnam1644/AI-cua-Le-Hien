@@ -2,8 +2,8 @@ import streamlit as st
 import google.generativeai as genai
 
 st.set_page_config(
-    page_title="Trợ lý Giáo viên Mầm Non", 
-    page_icon="🌈", 
+    page_title="Trợ lý Quản lý Giáo dục", 
+    page_icon="📄", 
     layout="wide"
 )
 
@@ -90,7 +90,7 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
-
+#code by trungnam 
 st.markdown("""
 <div style='background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
             backdrop-filter: blur(20px);
@@ -101,10 +101,10 @@ st.markdown("""
             border: 2px solid rgba(255, 255, 255, 0.3);
             margin-bottom: 30px;'>
     <h1 style='color: white; font-size: 3em; margin: 0; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);'>
-        🌈 Trợ lý Giáo viên Mầm Non 🎨
+        📚 Trợ lý Quản lý Giáo dục 🎓
     </h1>
     <p style='color: white; font-size: 1.3em; margin: 15px 0 0 0; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);'>
-        ✨ Chào cô! Mình sẵn sàng hỗ trợ cô quản lý lớp học! ✨
+        Hỗ trợ Ban Giám hiệu phân tích và giải quyết vấn đề quản lý nhà trường
     </p>
 </div>
 """, unsafe_allow_html=True)
@@ -114,65 +114,40 @@ try:
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel('gemini-2.5-flash')
 except Exception as e:
-    st.error(f"❌ Có lỗi xảy ra: {str(e)}")
+    st.error(f"Có lỗi xảy ra: {str(e)}")
     st.stop()
 
-SYSTEM_PROMPT = """Bạn là trợ lý thân thiện dành cho giáo viên mầm non, sử dụng giọng điệu ấm áp, gần gũi.
+SYSTEM_PROMPT = """Bạn là trợ lý quản lý giáo dục chuyên nghiệp, hỗ trợ Ban Giám hiệu nhà trường.
 
 NHIỆM VỤ CỦA BẠN:
-- Hỗ trợ giáo viên mầm non giải quyết các vấn đề quản lý lớp học
-- Đưa ra giải pháp cụ thể, dễ áp dụng, phù hợp với độ tuổi mầm non (3-6 tuổi)
-- Tạo kế hoạch hoạt động, trò chơi, bài học cho trẻ
-- Tư vấn cách xử lý tình huống với trẻ và phụ huynh
+- Phân tích các vấn đề quản lý giáo dục một cách chuyên sâu, có cấu trúc
+- Đưa ra giải pháp cụ thể, khả thi, dựa trên nghiên cứu quản lý hiện đại
+- Hỗ trợ xây dựng kế hoạch hành động chi tiết
+- Tạo tài liệu báo cáo chuyên nghiệp
 
 PHONG CÁCH GIAO TIẾP:
-- Thân thiện, ấm áp, dùng emoji phù hợp 🌈 🎨 ⭐ 💕
-- Xưng hô "cô" với giáo viên, "các bé" với trẻ
-- Ngôn ngữ đơn giản, dễ hiểu, gần gũi
-- Luôn động viên và khích lệ giáo viên
+- Chuyên nghiệp, rõ ràng, có cấu trúc bullet points
+- Sử dụng icon phù hợp: 📚 📊 🎯 💡 ✅ 📋 👥 🏫
+- Đưa ra lựa chọn cụ thể cho người dùng
+- Phân tích nguyên nhân trước khi đưa giải pháp
 
-KHI BẮT ĐẦU CUỘC TRÒ CHUYỆN:
-Chào thân thiện và giới thiệu 3 vấn đề phổ biến mà giáo viên mầm non thường gặp.
+KHI NGƯỜI DÙNG CHỌN VẤN ĐỀ:
+1. Liệt kê 4-5 nguyên nhân có thể
+2. Đưa ra 3 hướng hỗ trợ cụ thể
+3. Khi được yêu cầu, cung cấp 5 biện pháp chi tiết
 
-KHI PHÂN TÍCH VẤN ĐỀ:
-- Đồng cảm với giáo viên
-- Đưa ra giải pháp thực tế, dễ làm
-- Cung cấp ví dụ cụ thể về hoạt động, trò chơi
-- Luôn nhấn mạnh sự phát triển tích cực của trẻ
+KHI ĐƯỢC YÊU CẦU TẠO TÀI LIỆU:
+- Kế hoạch: Format rõ ràng, có mục tiêu, hoạt động, thời gian
+- Báo cáo: Cấu trúc đầy đủ với tình huống, nguyên nhân, giải pháp
+- Checklist: Chia theo tuần, cụ thể, có trách nhiệm
 
-HÃY BẮT ĐẦU BẰNG LỜI CHÀO ẤM ÁP."""
+LUÔN GIỮ THÁI ĐỘ: Tôn trọng, hỗ trợ, không phán xét."""
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
-if "current_mode" not in st.session_state:
-    st.session_state.current_mode = "👶 Giáo viên Mầm Non"
-
-if "mode" in locals() and mode != st.session_state.current_mode:
-    st.session_state.messages = []
-    st.session_state.current_mode = mode
 
 if len(st.session_state.messages) == 0:
-    if st.session_state.current_mode == "👶 Giáo viên Mầm Non":
-        welcome_message = """Chào cô! 🌸
-
-Mình là trợ lý dành riêng cho các cô giáo mầm non. Mình sẵn sàng giúp cô giải quyết các vấn đề trong công việc!
-
-**Các cô thường gặp 3 vấn đề này. Cô đang gặp vấn đề nào?**
-
-**1. Trẻ không chú ý, hay nghịch phá trong giờ học**
-Các bé chạy nhảy, không nghe lời, giờ học mất trật tự
-
-**2. Khó khăn trong giao tiếp với phụ huynh**
-Phụ huynh quá lo lắng, đòi hỏi nhiều, hoặc ít quan tâm đến con
-
-**3. Thiết kế hoạt động học chơi hấp dẫn cho trẻ**
-Cần ý tưởng trò chơi, bài học mới lạ, phù hợp lứa tuổi
-
----
-
-Cô hãy chọn số 1, 2, 3 hoặc chia sẻ vấn đề khác nhé! Mình sẽ cùng cô tìm giải pháp!"""
-    else:
-        welcome_message = """Xin chào Ban Giám hiệu! 🎓
+    welcome_message = """👋 Xin chào Ban Giám hiệu!
 
 Tôi là trợ lý quản lý giáo dục. Nhà trường đang gặp 3 vấn đề nổi bật gần đây. Bạn muốn phân tích vấn đề nào trước?
 
@@ -184,7 +159,7 @@ Tôi là trợ lý quản lý giáo dục. Nhà trường đang gặp 3 vấn đ
 
 ---
 
-Hãy chọn số 1, 2, 3 hoặc mô tả vấn đề khác bạn đang gặp phải."""
+Hãy chọn số **1, 2, 3** hoặc mô tả vấn đề khác bạn đang gặp phải."""
     
     st.session_state.messages.append({"role": "assistant", "content": welcome_message})
 
@@ -212,9 +187,9 @@ if prompt := st.chat_input("Nhập tin nhắn của bạn..."):
 LỊCH SỬ HỘI THOẠI:
 {conversation_history}
 
-Cô vừa hỏi: {prompt}
+Ban Giám hiệu vừa hỏi: {prompt}
 
-Hãy trả lời theo vai trò trợ lý thân thiện của giáo viên mầm non. Sử dụng emoji phù hợp, giọng điệu ấm áp, gần gũi."""
+Hãy trả lời theo vai trò trợ lý quản lý giáo dục chuyên nghiệp. Phân tích vấn đề và đưa ra các lựa chọn hỗ trợ cụ thể."""
             
             response = model.generate_content(full_prompt)
             full_response = response.text
@@ -223,107 +198,53 @@ Hãy trả lời theo vai trò trợ lý thân thiện của giáo viên mầm n
             st.session_state.messages.append({"role": "assistant", "content": full_response})
             
         except Exception as e:
-            error_message = f"❌ Có lỗi xảy ra: {str(e)}"
+            error_message = f"Có lỗi xảy ra: {str(e)}"
             message_placeholder.markdown(error_message)
             st.session_state.messages.append({"role": "assistant", "content": error_message})
 
 with st.sidebar:
-    st.markdown("### 🎯 Chế độ làm việc")
-    
-    mode = st.radio(
-        "Chọn vai trò:",
-        ["👶 Giáo viên Mầm Non", "🎓 Ban Giám hiệu"],
-        label_visibility="collapsed"
-    )
-    
+    st.markdown("### 🎒 Công cụ quản lý")
     st.markdown("---")
     
-    if mode == "👶 Giáo viên Mầm Non":
-        st.markdown("### 🎀 Công cụ hỗ trợ nhanh")
-        st.markdown("#### 📚 Hoạt động học")
-        
-        if st.button("🎨 Hoạt động học chơi"):
-            prompt = "Gợi ý hoạt động học chơi vui nhộn cho trẻ mầm non"
-            st.session_state.messages.append({"role": "user", "content": prompt})
-            st.rerun()
-        
-        if st.button("🎭 Trò chơi phát triển"):
-            prompt = "Ý tưởng trò chơi phát triển kỹ năng cho trẻ"
-            st.session_state.messages.append({"role": "user", "content": prompt})
-            st.rerun()
-        
-        if st.button("🎵 Bài hát vận động"):
-            prompt = "Bài hát và động tác cho trẻ mầm non"
-            st.session_state.messages.append({"role": "user", "content": prompt})
-            st.rerun()
-        
-        st.markdown("---")
-        st.markdown("#### 💬 Phụ huynh")
-        
-        if st.button("👨‍👩‍👧 Tin nhắn phụ huynh"):
-            prompt = "Mẫu tin nhắn gửi phụ huynh"
-            st.session_state.messages.append({"role": "user", "content": prompt})
-            st.rerun()
-        
-        if st.button("📋 Báo cáo phát triển"):
-            prompt = "Cách viết báo cáo phát triển của trẻ"
-            st.session_state.messages.append({"role": "user", "content": prompt})
-            st.rerun()
-        
-        st.markdown("---")
-        st.markdown("#### 🎯 Xử lý tình huống")
-        
-        if st.button("😢 Trẻ khóc, quấy"):
-            prompt = "Cách xử lý trẻ khóc và quấy phá"
-            st.session_state.messages.append({"role": "user", "content": prompt})
-            st.rerun()
-        
-        if st.button("🤝 Kỹ năng xã hội"):
-            prompt = "Dạy trẻ kỹ năng xã hội"
-            st.session_state.messages.append({"role": "user", "content": prompt})
-            st.rerun()
+    st.markdown("#### 🏫 Vấn đề phổ biến")
     
-    else:
-        st.markdown("### 📊 Quản lý nhà trường")
-        st.markdown("#### 🎯 Vấn đề phổ biến")
-        
-        if st.button("📉 Chất lượng giảng dạy"):
-            prompt = "Phân tích vấn đề chất lượng giảng dạy của một số tổ chuyên môn giảm sút"
-            st.session_state.messages.append({"role": "user", "content": prompt})
-            st.rerun()
-        
-        if st.button("👥 Bất đồng thế hệ"):
-            prompt = "Phân tích vấn đề bất đồng quan điểm giữa các nhóm giáo viên thế hệ khác nhau"
-            st.session_state.messages.append({"role": "user", "content": prompt})
-            st.rerun()
-        
-        if st.button("📊 Tham gia hoạt động"):
-            prompt = "Phân tích vấn đề mức độ tham gia hoạt động chung không đồng đều"
-            st.session_state.messages.append({"role": "user", "content": prompt})
-            st.rerun()
-        
-        st.markdown("---")
-        st.markdown("#### 📝 Tài liệu hỗ trợ")
-        
-        if st.button("📋 Kế hoạch can thiệp"):
-            prompt = "Viết kế hoạch can thiệp 1 trang cho vấn đề đang thảo luận"
-            st.session_state.messages.append({"role": "user", "content": prompt})
-            st.rerun()
-        
-        if st.button("📊 Báo cáo phân tích"):
-            prompt = "Xây dựng báo cáo phân tích tình huống chi tiết"
-            st.session_state.messages.append({"role": "user", "content": prompt})
-            st.rerun()
-        
-        if st.button("✅ Checklist 30 ngày"):
-            prompt = "Tạo checklist việc cần làm trong 30 ngày"
-            st.session_state.messages.append({"role": "user", "content": prompt})
-            st.rerun()
-        
-        if st.button("📄 Tài liệu báo cáo"):
-            prompt = "Tạo tài liệu để báo cáo cho giáo viên"
-            st.session_state.messages.append({"role": "user", "content": prompt})
-            st.rerun()
+    if st.button("📊 Chất lượng giảng dạy"):
+        prompt = "Phân tích vấn đề: Chất lượng giảng dạy của một số tổ chuyên môn giảm sút"
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        st.rerun()
+    
+    if st.button("👥 Bất đồng thế hệ"):
+        prompt = "Phân tích vấn đề: Bất đồng quan điểm giữa các nhóm giáo viên thế hệ khác nhau"
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        st.rerun()
+    
+    if st.button("🎯 Tham gia hoạt động"):
+        prompt = "Phân tích vấn đề: Mức độ tham gia hoạt động chung không đồng đều"
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        st.rerun()
+    
+    st.markdown("---")
+    st.markdown("#### 📝 Tài liệu hỗ trợ")
+    
+    if st.button("📋 Kế hoạch can thiệp"):
+        prompt = "Viết kế hoạch can thiệp 1 trang cho vấn đề đang thảo luận"
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        st.rerun()
+    
+    if st.button("📈 Báo cáo phân tích"):
+        prompt = "Xây dựng báo cáo phân tích tình huống chi tiết"
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        st.rerun()
+    
+    if st.button("✅ Checklist 30 ngày"):
+        prompt = "Tạo checklist việc cần làm trong 30 ngày"
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        st.rerun()
+    
+    if st.button("📄 Tài liệu báo cáo GV"):
+        prompt = "Tạo tài liệu để báo cáo cho giáo viên"
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        st.rerun()
     
     st.markdown("---")
     
@@ -332,9 +253,5 @@ with st.sidebar:
         st.rerun()
     
     st.markdown("---")
-    st.markdown("**💕 Tạo bởi LeHien**")
-    st.markdown("*Dành tặng cô giáo mầm non*")
-
-if st.button("🗑️ Xóa lịch sử chat"):
-    st.session_state.messages = []
-    st.rerun()
+    st.markdown("**💝 Tạo bởi LeHien**")
+    st.markdown("**🌸 Dành tặng cô giáo mầm non**")
