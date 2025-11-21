@@ -126,10 +126,17 @@ NHIỆM VỤ CỦA BẠN:
 - Tạo tài liệu báo cáo chuyên nghiệp
 
 PHONG CÁCH GIAO TIẾP:
-- Chuyên nghiệp, rõ ràng, có cấu trúc bullet points
-- Sử dụng icon phù hợp: 📚 📊 🎯 💡 ✅ 📋 👥 🏫
-- Đưa ra lựa chọn cụ thể cho người dùng
+- Chuyên nghiệp, tôn trọng, lịch sự
+- Xưng hô: Luôn dùng "Thầy/Cô" khi gọi Ban Giám hiệu, tự xưng là "em" hoặc "trợ lý"
+- Sử dụng icon phù hợp: 📚 📊 🎯 💡 ✅📋 👥 🏫
+- Cấu trúc rõ ràng với bullet points
+- Đưa ra lựa chọn cụ thể, tránh dùng "bạn" hay "tôi"
 - Phân tích nguyên nhân trước khi đưa giải pháp
+
+VÍ DỤ CÁCH XƯng HÔ:
+- ❌ SAI: "Bạn muốn tôi hỗ trợ hướng nào?"
+- ✅ ĐÚNG: "Thầy/Cô muốn em hỗ trợ theo hướng nào ạ?"
+- ✅ ĐÚNG: "Xin mời Thầy/Cô lựa chọn hướng hỗ trợ ưu tiên"
 
 KHI NGƯỜI DÙNG CHỌN VẤN ĐỀ:
 1. Liệt kê 4-5 nguyên nhân có thể
@@ -141,7 +148,7 @@ KHI ĐƯỢC YÊU CẦU TẠO TÀI LIỆU:
 - Báo cáo: Cấu trúc đầy đủ với tình huống, nguyên nhân, giải pháp
 - Checklist: Chia theo tuần, cụ thể, có trách nhiệm
 
-LUÔN GIỮ THÁI ĐỘ: Tôn trọng, hỗ trợ, không phán xét."""
+LUÔN GIỮ THÁI ĐỘ: Tôn trọng, hỗ trợ, không phán xét, lịch sự."""
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -163,16 +170,13 @@ Hãy chọn số **1, 2, 3** hoặc mô tả vấn đề khác bạn đang gặp
     
     st.session_state.messages.append({"role": "assistant", "content": welcome_message})
 
-# Kiểm tra xem có message mới từ button sidebar không
 if "pending_response" not in st.session_state:
     st.session_state.pending_response = False
 
-# Hiển thị tất cả messages
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# Xử lý AI response nếu có message mới từ button
 if st.session_state.pending_response and len(st.session_state.messages) > 0:
     last_message = st.session_state.messages[-1]
     if last_message["role"] == "user":
@@ -195,7 +199,6 @@ Ban Giám hiệu vừa hỏi: {last_message['content']}
 
 Hãy trả lời theo vai trò trợ lý quản lý giáo dục chuyên nghiệp. Phân tích vấn đề và đưa ra các lựa chọn hỗ trợ cụ thể."""
                 
-                # Streaming response
                 response = model.generate_content(full_prompt, stream=True)
                 for chunk in response:
                     if chunk.text:
@@ -213,7 +216,6 @@ Hãy trả lời theo vai trò trợ lý quản lý giáo dục chuyên nghiệp
         st.session_state.pending_response = False
         st.rerun()
 
-# Xử lý input từ chat
 if prompt := st.chat_input("Nhập tin nhắn của bạn..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     
@@ -239,7 +241,6 @@ Ban Giám hiệu vừa hỏi: {prompt}
 
 Hãy trả lời theo vai trò trợ lý quản lý giáo dục chuyên nghiệp. Phân tích vấn đề và đưa ra các lựa chọn hỗ trợ cụ thể."""
             
-            # Streaming response
             response = model.generate_content(full_prompt, stream=True)
             for chunk in response:
                 if chunk.text:
