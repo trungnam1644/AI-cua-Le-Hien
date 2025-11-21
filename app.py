@@ -1,17 +1,14 @@
 import streamlit as st
 import google.generativeai as genai
 
-# Cấu hình trang
 st.set_page_config(
     page_title="Trợ lý Giáo viên Mầm Non", 
     page_icon="🌈", 
     layout="wide"
 )
 
-# CSS hiện đại với gradient đẹp
 st.markdown("""
 <style>
-    /* Background gradient mềm mại */
     .stApp {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
         background-size: 400% 400%;
@@ -24,7 +21,6 @@ st.markdown("""
         100% { background-position: 0% 50%; }
     }
     
-    /* Card container cho chat */
     [data-testid="stChatMessageContent"] {
         background: rgba(255, 255, 255, 0.95) !important;
         backdrop-filter: blur(10px);
@@ -34,19 +30,16 @@ st.markdown("""
         border: 1px solid rgba(255, 255, 255, 0.3);
     }
     
-    /* Avatar containers */
     [data-testid="chatAvatarIcon-user"],
     [data-testid="chatAvatarIcon-assistant"] {
         background: rgba(255, 255, 255, 0.8) !important;
         backdrop-filter: blur(5px);
     }
     
-    /* Toàn bộ chat message container */
     [data-testid="stChatMessage"] {
         background: transparent !important;
     }
     
-    /* Markdown trong chat */
     [data-testid="stChatMessageContent"] p,
     [data-testid="stChatMessageContent"] h1,
     [data-testid="stChatMessageContent"] h2,
@@ -55,7 +48,6 @@ st.markdown("""
         color: #333 !important;
     }
     
-    /* Sidebar */
     [data-testid="stSidebar"] {
         background: linear-gradient(180deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
     }
@@ -64,7 +56,6 @@ st.markdown("""
         color: white;
     }
     
-    /* Nút bấm glassmorphism */
     .stButton>button {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
         backdrop-filter: blur(10px);
@@ -86,7 +77,6 @@ st.markdown("""
         border-color: rgba(255, 255, 255, 0.6);
     }
     
-    /* Input box */
     .stChatInputContainer {
         background: rgba(255, 255, 255, 0.9);
         backdrop-filter: blur(10px);
@@ -94,7 +84,6 @@ st.markdown("""
         border: 1px solid rgba(255, 255, 255, 0.3);
     }
     
-    /* Header styling */
     h1, h3 {
         color: white;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -102,7 +91,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Header với glassmorphism
 st.markdown("""
 <div style='background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
             backdrop-filter: blur(20px);
@@ -121,18 +109,14 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Cấu hình API Key từ secrets
 try:
     api_key = st.secrets["GEMINI_API_KEY"]
     genai.configure(api_key=api_key)
-    
-    # Khởi tạo model - sử dụng gemini-2.5-flash (mới nhất và nhanh)
     model = genai.GenerativeModel('gemini-2.5-flash')
 except Exception as e:
     st.error(f"❌ Có lỗi xảy ra: {str(e)}")
     st.stop()
 
-# System prompt cho chatbot quản lý giáo dục mầm non
 SYSTEM_PROMPT = """Bạn là trợ lý thân thiện dành cho giáo viên mầm non, sử dụng giọng điệu ấm áp, gần gũi.
 
 NHIỆM VỤ CỦA BẠN:
@@ -158,18 +142,15 @@ KHI PHÂN TÍCH VẤN ĐỀ:
 
 HÃY BẮT ĐẦU BẰNG LỜI CHÀO ẤM ÁP."""
 
-# Khởi tạo session state để lưu lịch sử chat và chế độ
 if "messages" not in st.session_state:
     st.session_state.messages = []
 if "current_mode" not in st.session_state:
     st.session_state.current_mode = "👶 Giáo viên Mầm Non"
 
-# Kiểm tra nếu chế độ thay đổi thì reset chat và gửi tin nhắn chào mới
 if "mode" in locals() and mode != st.session_state.current_mode:
     st.session_state.messages = []
     st.session_state.current_mode = mode
 
-# Tin nhắn chào mừng theo chế độ
 if len(st.session_state.messages) == 0:
     if st.session_state.current_mode == "👶 Giáo viên Mầm Non":
         welcome_message = """Chào cô! 🌸
@@ -190,7 +171,7 @@ Cần ý tưởng trò chơi, bài học mới lạ, phù hợp lứa tuổi
 ---
 
 Cô hãy chọn số 1, 2, 3 hoặc chia sẻ vấn đề khác nhé! Mình sẽ cùng cô tìm giải pháp!"""
-    else:  # Chế độ Ban Giám hiệu
+    else:
         welcome_message = """Xin chào Ban Giám hiệu! 🎓
 
 Tôi là trợ lý quản lý giáo dục. Nhà trường đang gặp 3 vấn đề nổi bật gần đây. Bạn muốn phân tích vấn đề nào trước?
@@ -207,32 +188,25 @@ Hãy chọn số 1, 2, 3 hoặc mô tả vấn đề khác bạn đang gặp ph�
     
     st.session_state.messages.append({"role": "assistant", "content": welcome_message})
 
-# Hiển thị lịch sử chat
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# Input từ người dùng
 if prompt := st.chat_input("Nhập tin nhắn của bạn..."):
-    # Thêm tin nhắn người dùng vào lịch sử
     st.session_state.messages.append({"role": "user", "content": prompt})
     
-    # Hiển thị tin nhắn người dùng
     with st.chat_message("user"):
         st.markdown(prompt)
     
-    # Gọi API Gemini và hiển thị phản hồi
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
         
         try:
-            # Tạo context từ lịch sử chat
             conversation_history = ""
             for msg in st.session_state.messages:
                 role = "Người dùng" if msg["role"] == "user" else "Trợ lý"
                 conversation_history += f"{role}: {msg['content']}\n\n"
             
-            # Tạo prompt đầy đủ với system prompt và context
             full_prompt = f"""{SYSTEM_PROMPT}
 
 LỊCH SỬ HỘI THOẠI:
@@ -242,14 +216,10 @@ Cô vừa hỏi: {prompt}
 
 Hãy trả lời theo vai trò trợ lý thân thiện của giáo viên mầm non. Sử dụng emoji phù hợp, giọng điệu ấm áp, gần gũi."""
             
-            # Gửi tin nhắn đến Gemini
             response = model.generate_content(full_prompt)
             full_response = response.text
             
-            # Hiển thị phản hồi
             message_placeholder.markdown(full_response)
-            
-            # Lưu phản hồi vào lịch sử
             st.session_state.messages.append({"role": "assistant", "content": full_response})
             
         except Exception as e:
@@ -257,11 +227,9 @@ Hãy trả lời theo vai trò trợ lý thân thiện của giáo viên mầm n
             message_placeholder.markdown(error_message)
             st.session_state.messages.append({"role": "assistant", "content": error_message})
 
-# Sidebar với glass effect
 with st.sidebar:
     st.markdown("### 🎯 Chế độ làm việc")
     
-    # Thêm radio button để chọn chế độ
     mode = st.radio(
         "Chọn vai trò:",
         ["👶 Giáo viên Mầm Non", "🎓 Ban Giám hiệu"],
@@ -315,7 +283,7 @@ with st.sidebar:
             st.session_state.messages.append({"role": "user", "content": prompt})
             st.rerun()
     
-    else:  # Chế độ Ban Giám hiệu
+    else:
         st.markdown("### 📊 Quản lý nhà trường")
         st.markdown("#### 🎯 Vấn đề phổ biến")
         
@@ -367,7 +335,6 @@ with st.sidebar:
     st.markdown("**💕 Tạo bởi LeHien**")
     st.markdown("*Dành tặng cô giáo mầm non*")
 
-# Nút xóa lịch sử chat (giữ lại ở cuối cho backward compatibility)
 if st.button("🗑️ Xóa lịch sử chat"):
     st.session_state.messages = []
     st.rerun()
