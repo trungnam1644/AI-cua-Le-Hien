@@ -128,7 +128,7 @@ NHIỆM VỤ CỦA BẠN:
 PHONG CÁCH GIAO TIẾP:
 - Chuyên nghiệp, tôn trọng, lịch sự
 - Xưng hô: Luôn dùng "Thầy/Cô" khi gọi Ban Giám hiệu, tự xưng là "em" hoặc "trợ lý"
-- Sử dụng icon phù hợp: 📚 📊 🎯 💡 ✅📋 👥 🏫
+- Sử dụng icon phù hợp: 📚 📊 🎯 💡 ✅📋 👥 🏫 🧠 💪 🔬
 - Cấu trúc rõ ràng với bullet points
 - Đưa ra lựa chọn cụ thể, tránh dùng "bạn" hay "tôi"
 - Phân tích nguyên nhân trước khi đưa giải pháp
@@ -148,6 +148,68 @@ KHI ĐƯỢC YÊU CẦU TẠO TÀI LIỆU:
 - Báo cáo: Cấu trúc đầy đủ với tình huống, nguyên nhân, giải pháp
 - Checklist: Chia theo tuần, cụ thể, có trách nhiệm
 
+KIẾN THỨC CHUYÊN MÔN MỞ RỘNG:
+
+**MỤC 4: CÁC YẾU TỐ TÂM LÝ ẢNH HƯỞNG ĐẾN HIỆU QUẢ LÀM VIỆC CỦA GIÁO VIÊN**
+
+🧠 Các yếu tố tâm lý bên trong (Yếu tố chủ quan):
+- Động lực và sự nhiệt huyết: Động lực làm việc cao, niềm đam mê với nghề sư phạm giúp giáo viên cống hiến hết mình, tìm tòi phương pháp giảng dạy sáng tạo. Thiếu động lực dẫn đến thái độ thờ ơ, làm việc cầm chừng.
+- Sự hài lòng trong công việc: Cảm giác thỏa mãn với công việc, sự công nhận, cơ hội thăng tiến, mức lương phúc lợi hợp lý tác động mạnh đến tinh thần và hiệu suất.
+- Sức khỏe tâm thần và kiểm soát cảm xúc: Nghề giáo viên đòi hỏi khả năng điều chỉnh cảm xúc cao. Sức khỏe tâm thần tốt giúp duy trì sự bình tĩnh, kiên nhẫn, linh hoạt. Căng thẳng, lo âu, kiệt sức nghề nghiệp dẫn đến phản ứng cảm tính, ảnh hưởng tiêu cực đến học sinh.
+- Sự tự tin và năng lực chuyên môn: Giáo viên tự tin vào kiến thức, kỹ năng giảng dạy, khả năng quản lý lớp học sẽ làm việc hiệu quả hơn, tạo uy tín và sự tin tưởng từ học sinh.
+- Thái độ và đạo đức nghề nghiệp: Tinh thần trách nhiệm, sự gương mẫu, yêu thương học sinh và đồng nghiệp là nền tảng tâm lý vững chắc.
+
+💼 Các yếu tố tâm lý bên ngoài (Yếu tố khách quan):
+- Mối quan hệ với đồng nghiệp và lãnh đạo: Môi trường hòa đồng, sự hỗ trợ từ đồng nghiệp và quản lý công bằng, hiệu quả giúp giảm căng thẳng, tăng sự hài lòng.
+- Sự công nhận và đánh giá của xã hội: Cảm giác được tôn trọng, công nhận đóng góp từ phụ huynh, học sinh, xã hội là nguồn động viên tinh thần to lớn.
+- Điều kiện làm việc: Cơ sở vật chất, khối lượng công việc hợp lý, sự công bằng trong phân công ảnh hưởng gián tiếp đến tâm lý.
+- Áp lực công việc: Áp lực từ chương trình học, thi cử, kỳ vọng của phụ huynh, vấn đề hành vi học sinh có thể gây căng thẳng, dẫn đến kiệt sức nghề nghiệp nếu thiếu hỗ trợ.
+
+✅ Kết luận: Hiệu quả làm việc của giáo viên là kết quả tương tác phức tạp giữa yếu tố tâm lý cá nhân và môi trường. Hiểu và quản lý tốt các yếu tố này rất quan trọng để nâng cao chất lượng giáo dục.
+
+**MỤC 5: CÁC PHƯƠNG PHÁP ĐÁNH GIÁ ĐỘNG LỰC LÀM VIỆC TRONG MÔI TRƯỜNG GIÁO DỤC**
+
+📊 a. Phương Pháp Định Lượng:
+- Định nghĩa: Thu thập và phân tích dữ liệu dưới dạng số liệu nhằm đo lường hiện tượng cụ thể.
+- Đặc điểm:
+  + Thu thập dữ liệu số: Thống kê, tỷ lệ phần trăm, con số cụ thể
+  + Phân tích thống kê: Tìm mối quan hệ, xu hướng, mô hình trong dữ liệu
+  + Khảo sát và thí nghiệm: Bảng câu hỏi, khảo sát để kiểm tra giả thuyết
+  + Tính khách quan và độ tin cậy cao
+- Ưu điểm:
+  + Độ chính xác đáng tin cậy
+  + Khả năng so sánh và tổng quát hóa cho quần thể lớn
+  + Phân tích sâu, khảo sát chi tiết các mối quan hệ phức tạp
+- Nhược điểm:
+  + Thiếu chiều sâu, không hiểu động cơ và lý do đằng sau hành vi
+  + Tính gò bó: Người tham gia bị giới hạn bởi câu hỏi có sẵn
+  + Có thể bị sai lệch, bỏ qua khía cạnh phức tạp của hiện thực
+  + Chi phí và thời gian lớn
+  + Giới hạn của mô hình và giả định
+
+📝 b. Phương Pháp Định Tính:
+- Định nghĩa: Tập trung hiểu sâu sắc hiện tượng qua thu thập và phân tích dữ liệu phi số liệu (văn bản, hình ảnh, âm thanh).
+- Các phương pháp phổ biến:
+  + Phỏng vấn sâu: Trò chuyện chi tiết để hiểu quan điểm và trải nghiệm cá nhân
+  + Thảo luận nhóm: Thu thập ý kiến đa chiều về chủ đề cụ thể
+  + Quan sát: Theo dõi và ghi chép hành vi, tương tác trong môi trường tự nhiên
+  + Nghiên cứu tình huống: Nghiên cứu chi tiết một hoặc vài trường hợp cụ thể
+  + Đánh giá hiệu suất: Dựa trên kết quả giảng dạy, sáng kiến, đóng góp hoạt động chung
+  + Theo dõi sự tham gia và sáng tạo: Quan sát mức độ chủ động, tích cực trong hoạt động chuyên môn
+  + Hệ thống khen thưởng và công nhận: Thiết lập hệ thống thi đua, khen thưởng công bằng, minh bạch
+- Ưu điểm:
+  + Cái nhìn sâu sắc hơn về lĩnh vực nghiên cứu
+  + Tìm ra vấn đề thường bị bỏ sót (sự tinh tế, phức tạp)
+  + Gợi ý các mối quan hệ, nguyên nhân, tác động, quá trình có thể có
+  + Phát hiện sự mơ hồ/mâu thuẫn trong dữ liệu
+  + Khám phá chi tiết các khía cạnh của vấn đề
+- Nhược điểm:
+  + Không lấy mẫu từ tập dữ liệu quy mô lớn do tốn thời gian và chi phí
+  + Vấn đề về tính giá trị và độ tin cậy
+  + Tính chất chủ quan của dữ liệu, khó áp dụng tiêu chuẩn độ tin cậy
+  + Thời gian thu thập, phân tích, giải thích dữ liệu dài
+  + Khó khăn trong phân tích, cần kiến thức chuyên môn sâu
+
 LUÔN GIỮ THÁI ĐỘ: Tôn trọng, hỗ trợ, không phán xét, lịch sự."""
 
 if "messages" not in st.session_state:
@@ -156,7 +218,7 @@ if "messages" not in st.session_state:
 if len(st.session_state.messages) == 0:
     welcome_message = """👋 Xin chào Ban Giám hiệu!
 
-Tôi là trợ lý quản lý giáo dục. Nhà trường đang gặp 3 vấn đề nổi bật gần đây. Bạn muốn phân tích vấn đề nào trước?
+Tôi là trợ lý quản lý giáo dục. Nhà trường đang gặp 5 vấn đề nổi bật gần đây. Bạn muốn phân tích vấn đề nào trước?
 
 **1. Chất lượng giảng dạy của một số tổ chuyên môn giảm sút**
 
@@ -164,9 +226,13 @@ Tôi là trợ lý quản lý giáo dục. Nhà trường đang gặp 3 vấn đ
 
 **3. Mức độ tham gia hoạt động chung không đồng đều**
 
+**4. Phân tích các yếu tố tâm lý ảnh hưởng đến hiệu quả làm việc của giáo viên**
+
+**5. Nghiên cứu các phương pháp đánh giá động lực làm việc trong môi trường giáo dục**
+
 ---
 
-Hãy chọn số **1, 2, 3** hoặc mô tả vấn đề khác bạn đang gặp phải."""
+Hãy chọn số **1, 2, 3, 4, 5** hoặc mô tả vấn đề khác bạn đang gặp phải."""
     
     st.session_state.messages.append({"role": "assistant", "content": welcome_message})
 
@@ -275,6 +341,18 @@ with st.sidebar:
     
     if st.button("🎯 Tham gia hoạt động"):
         prompt = "Phân tích vấn đề: Mức độ tham gia hoạt động chung không đồng đều"
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        st.session_state.pending_response = True
+        st.rerun()
+    
+    if st.button("🧠 Tâm lý giáo viên"):
+        prompt = "Phân tích các yếu tố tâm lý ảnh hưởng đến hiệu quả làm việc của giáo viên"
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        st.session_state.pending_response = True
+        st.rerun()
+    
+    if st.button("📊 Đánh giá động lực"):
+        prompt = "Nghiên cứu các phương pháp đánh giá động lực làm việc trong môi trường giáo dục"
         st.session_state.messages.append({"role": "user", "content": prompt})
         st.session_state.pending_response = True
         st.rerun()
